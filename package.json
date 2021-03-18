@@ -1,0 +1,40 @@
+{
+	"name": "MovieOracle",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "npm run nodemon",
+		"dev": "cross-env NODE_ENV=development node ./app.js",
+		"nodemon": "nodemon --exec npm run dev",
+		"lint": "eslint ./api/. ./config/. ./test/.",
+		"prepush": "npm test",
+		"pretest": "npm run lint",
+		"production": "cross-env NODE_ENV=production node ./server.js",
+		"test": " cross-env NODE_ENV=testing jest --coverage",
+		"test-ci": "jest --coverage --forceExit"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.19.0",
+		"cors": "^2.8.5",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"helmet": "^4.4.1",
+		"morgan": "^1.10.0",
+		"oracledb": "^5.1.0"
+	},
+	"devDependencies": {
+		"cross-env": "^5.1.4",
+		"eslint": "^4.19.1",
+		"eslint-config-airbnb-base": "^12.1.0",
+		"eslint-plugin-import": "^2.11.0",
+		"husky": "^0.14.3",
+		"jest": "^24.8.0",
+		"nodemon": "^1.17.3",
+		"shx": "^0.2.2",
+		"supertest": "^3.0.0"
+	}
+}
