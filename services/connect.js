@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const cors = require('cors');
 const webServerConfig = require('../config/server');
-const database = require('./database.js');
+const conn = require('./database.js');
 
 let httpServer;
 
@@ -14,9 +14,6 @@ function initialize() {
     const app = express();
     httpServer = http.createServer(app);
     app.use(morgan('combined'));
-    app.get('/', (req, res) => {
-      res.end('Hello World!');
-    });
     // cors
     app.use(cors());
 
@@ -35,12 +32,12 @@ function initialize() {
     // app.use('/api', require('./api/routes'));
     // app.use('/swagger', require('./documents/swagger'));
     app.get('/', async (req, res) => {
-      const result = await database.simpleExecute('select user, systimestamp from dual');
-      const user = result.rows[0].USER;
-      const date = result.rows[0].SYSTIMESTAMP;
-
-      res.end('DB user: ${user}\nDate: ${date}');
+      const result = await conn.raw('select * from S_EMP');
+      console.log(result);
+      res.status(200).json({ result });
     });
+
+
     httpServer.listen(webServerConfig.port, (err) => {
       if (err) {
         reject(err);

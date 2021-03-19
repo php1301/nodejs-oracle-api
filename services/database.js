@@ -1,10 +1,14 @@
 const oracledb = require('oracledb');
 const dbConfig = require('../config/database.js');
+const knex = require('knex');
 
-async function initialize() {
-  await oracledb.createPool(dbConfig.hrPool);
-}
-module.exports.initialize = initialize;
+const conn = knex({
+  client: 'oracledb',
+  connection: dbConfig.hrPool,
+  pool: { min: 0, max: 7 },
+});
+
+module.exports = conn;
 
 
 function simpleExecute(statement, binds = [], opts = {}) {
