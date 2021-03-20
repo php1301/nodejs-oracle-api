@@ -14,7 +14,7 @@ function initialize() {
   return new Promise((resolve, reject) => {
     const app = express();
     httpServer = http.createServer(app);
-    app.use(morgan('combined'));
+    app.use(morgan('dev'));
     // cors
     app.use(cors());
 
