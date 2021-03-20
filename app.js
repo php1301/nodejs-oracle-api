@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 
 const webServer = require('./services/connect.js');
 // const database = require('./services/database.js');

@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -29,10 +30,12 @@ function initialize() {
     app.use(bodyParser.json());
 
     // use route, map route
-    // app.use('/api', require('./api/routes'));
+    app.use('/api', require('../api/routes'));
     // app.use('/swagger', require('./documents/swagger'));
+
+    // TEST
     app.get('/', async (req, res) => {
-      const result = await conn.raw('select * from S_EMP');
+      const result = await conn.raw('select 1 from dual');
       console.log(result);
       res.status(200).json({ result });
     });
