@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const { jwtVerify } = require('../helpers/callback.helper');
 // Config của jwt
 const secret = process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'secret';
+const userRoles = require('../api/user/user.enum');
 
 const authService = () => {
   // Tạo token, với payload muốn lưu trong token
@@ -30,9 +31,9 @@ const authService = () => {
       }).catch((e) => console.log(e));
   };
   const authorize = (userTypeArray) => (req, res, next) => {
-    const { maLoaiNguoiDung } = req.user.payload;
-    // console.log(maLoaiNguoiDung);
-    if (userTypeArray.findIndex((elm) => elm === maLoaiNguoiDung) !== -1) { return next(); }
+    const { MALOAINGUOIDUNG } = req.user.payload;
+    if (userTypeArray.findIndex((elm) =>
+      elm === userRoles.rolesEnum[MALOAINGUOIDUNG - 1]) !== -1) { return next(); }
     return res.status(401).json({ message: 'You dont have permission' });
   };
   return {
