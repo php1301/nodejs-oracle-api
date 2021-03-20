@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const express = require('express');
 const controller = require('./user.controller');
 // const { validateUserUpdate } = require('./user.validator');
